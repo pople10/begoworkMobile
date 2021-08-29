@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "855014117084",
+    "project_id": "begowork-2f202",
+    "storage_bucket": "begowork-2f202.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855014117084:android:0f0a822735e8d09ad66e19",
+        "android_client_info": {
+          "package_name": "com.begowork.workspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855014117084-1h3gv3qp1uf0vmus2a3itla43an8ncvk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIatImRLYYYW95L1z9TIhRFHxZ4vEyGSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855014117084-1h3gv3qp1uf0vmus2a3itla43an8ncvk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
