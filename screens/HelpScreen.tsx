@@ -96,7 +96,7 @@ export default function HelpScreen (props) {
 			}
 			return response.json().then(function(data) {
 				showAlert({
-					title:"Erreur",
+					title:"Succès",
 					message: "Envoyé avec succès.\nVerifie la réception dans votre boite mail",
 					alertType: 'success',
 					btnLabel:"D'accord",

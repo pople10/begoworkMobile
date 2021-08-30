@@ -152,7 +152,7 @@ const App2 =()=>{
    return (
       <AnimatedSplash
         isLoaded={isLoaded}
-        logoImage={require("./assets/images/logo.png")}
+        logoImage={require("./assets/images/logoS.jpg")}
         backgroundColor={"#fff"}
         logoHeight={200}
         logoWidth={200}

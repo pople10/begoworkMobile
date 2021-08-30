@@ -197,6 +197,13 @@ export default function ReservingScreen (props) {
 	}
 	const header = ["Jour","Début","Arrêt"];
 	const ReservingButton = () => {
+		if(!listing.availibility)
+			return (
+				<TouchableOpacity disabled={true}
+					style={[styles.buttonsDisabled,{marginBottom:'5%'}]}>
+						<Text style={{ fontSize: 20, color: '#fff',textAlign:'center' }}>Non disponible</Text>
+				</TouchableOpacity>
+			);
 		return (
 			<TouchableOpacity disabled={sentData}
 				onPress={() => reserve()}
@@ -321,6 +328,14 @@ const styles = StyleSheet.create({
 	},
 	buttons:{ 
 		backgroundColor: '#FB7600',
+		width:'90%',
+		marginRight:'auto',
+		marginLeft:'auto',
+		textAlign:'center',
+		padding:10
+	},
+	buttonsDisabled:{
+		backgroundColor: '#e5e5e5',
 		width:'90%',
 		marginRight:'auto',
 		marginLeft:'auto',
