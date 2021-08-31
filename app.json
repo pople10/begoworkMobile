@@ -18,8 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "transparent"
+        "foregroundImage": "./assets/images/adaptive-icon.png"
       },
 	  "googleServicesFile": "./google-services.json",
       "package": "com.begowork.workspace"
