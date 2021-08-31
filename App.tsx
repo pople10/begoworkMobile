@@ -40,7 +40,6 @@ function App() {
 				<ClientArea expoPushToken={expoPushToken} tokenChanger={setToken} guestChanger={setGuest} guest={guest} token={token} colorScheme={"light"} />
 			);};
   useEffect(()=>{
-	  //console.log(guest);
 		getToken();
 		const unsubscribe = NetInfo.addEventListener(state => {
 		  setConnected(state.isConnected);
@@ -59,7 +58,8 @@ function App() {
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
+      //console.log("sss:",response.notification.request.content.data);
+	  /* we can navigate between screens here */
     });
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);

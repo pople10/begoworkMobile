@@ -26,7 +26,6 @@ class TopBar extends React.PureComponent {
 const dim = Dimensions.get('screen');
 const styles = StyleSheet.create({
   mainNav: {
-    flex: 1,
     flexDirection: 'row',
     width:"100%"
   },

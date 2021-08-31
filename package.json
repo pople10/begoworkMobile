@@ -50,6 +50,8 @@
     "react-native-dynamic-vector-icons": "^1.1.6",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-modal-datetime-picker": "^10.2.0",
+    "react-native-picker-select": "^8.0.4",
     "react-native-radio-input": "^0.9.4",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
@@ -61,6 +63,7 @@
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.1",
     "react-native-whc-loading": "^1.0.3",
+    "react-native-woodpicker": "^0.3.10",
     "react-navigation": "^4.4.4",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.1.2"

@@ -1,5 +1,5 @@
 import React,{useState,useEffect,ReactDOM} from 'react';
-import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TextInput,Easing,Animated,CheckBox,Linking } from 'react-native';
@@ -8,6 +8,7 @@ import apiConst from '../constants/api';
 import Swal from 'sweetalert2';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Spinner from '../components/Spinner';
+import Dropdown from '../components/Dropdown';
 import CustomisableAlert ,{showAlert,closeAlert } from "react-native-customisable-alert";
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -219,17 +220,24 @@ export default function Register ({tokenChanger,...rest}) {
 			return (
 					<View style={styles.container}>
 					<Text style={styles.title}>Registre</Text>
-							<View style={{borderWidth:1,width:'90%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
-								<Picker
-									style={{height:40,fontSize:15}}
-								  selectedValue={title}
-								  onValueChange={(itemValue, itemIndex) =>
-									setTitle(itemValue)
-								  }>
-								  <Picker.Item label="Monsieur" value="Mr." />
-								  <Picker.Item label="Madamme" value="Mrs." />
-								</Picker>
-							</View>
+								{Platform.OS === 'ios'?
+								<View style={{width:'90%',marginRight:'auto',marginLeft:'auto',height:40,borderWidth:1,borderColor:'black',fontSize:15,lineHeight:18,alignItems:'center',padding:10,marginBottom:20,borderRadius:3}}>
+									<Dropdown value={title} handler={setTitle}
+									placeholder={{ label: 'Selectioner le genre...', value: null, color: '#9EA0A4' }}
+									items={[{label: 'Monsieur', value: 'Mr.', key: 'Mr.', color: 'black', inputLabel: 'Monsieur'},{label: 'Madamme', value: 'Mrs.', key: 'Mrs.', color: 'black', inputLabel: 'Madamme'}]}/>
+								</View>
+								:
+								<View style={{borderWidth:1,width:'90%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
+									<Picker
+										style={{height:40,fontSize:15}}
+									  selectedValue={title}
+									  onValueChange={(itemValue, itemIndex) =>
+										setTitle(itemValue)
+									  }>
+									  <Picker.Item label="Monsieur" value="Mr." />
+									  <Picker.Item label="Madamme" value="Mrs." />
+									</Picker>
+								</View>}
 							<TextInput
 							  style={{width:'90%',marginRight:'auto',marginLeft:'auto',height:40,borderWidth:1,borderColor:(focused1?'#FB7600':'black'),fontSize:15,lineHeight:18,alignItems:'center',padding:10,marginBottom:20,borderRadius:3}}
 							  onFocus={()=> setFocused1(true)}

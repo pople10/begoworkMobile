@@ -1,5 +1,5 @@
 import React,{useEffect,useState,useRef} from 'react'
-import {ImageBackground, StyleSheet,Dimensions,ActivityIndicator,TouchableOpacity,ScrollView,RefreshControl} from 'react-native'
+import {ImageBackground, StyleSheet,Dimensions,ActivityIndicator,TouchableOpacity,ScrollView,RefreshControl,Platform} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text, View} from '../components/Themed';
 import ButtonCustom from '../components/Button';
@@ -14,6 +14,7 @@ import NotAuth from '../screens/NotAuthScreenRoot';
 import { Entypo,MaterialCommunityIcons,Feather,AntDesign,MaterialIcons } from '@expo/vector-icons';
 import {Picker} from '@react-native-picker/picker';
 import { Input } from 'react-native-elements';
+import Dropdown from '../components/Dropdown';
 
 import ResultScreen from './ResultScreen';
 import ReservingScreen from './ReservingScreen';
@@ -392,6 +393,56 @@ export default function SearchScreen (props) {
         })
 		.finally(()=>{setLoaded(true);});
 	};
+	const Picking = () => 
+	{
+		return(
+			<Picker
+				style={{height:40,fontSize:15,alignItems:'center'}}
+				selectedValue={listingType}
+				onValueChange={(itemValue, itemIndex) =>
+				setListingType(itemValue)}>
+				{listingTypes&&listingTypes.map((data,index) =>
+					{
+						return <Picker.Item key={index} label={data.label} value={data.idListingType} />;
+					}
+				)}
+			</Picker>
+		);
+	}
+	const PickingAddr = () =>
+	{
+		return(
+			<Picker
+				style={{height:40,fontSize:15,alignItems:'center'}}
+				selectedValue={address}
+				onValueChange={(itemValue, itemIndex) =>
+				setAddress(itemValue)}>
+				{addresses&&addresses.map((data,index) =>
+					{
+						return <Picker.Item key={index} label={data.city+" - "+data.country}value={data.city+"-"+data.country} />;
+					}
+				)}
+			</Picker>
+		);
+	}
+	const getDataToIOSPickerTypes = () =>
+	{
+		let array = [];
+		if(listingTypes)
+			listingTypes.forEach(d=>{
+				array.push({label: d.label, value: d.idListingType, key: d.idListingType, color: 'black', inputLabel: d.label});
+			});
+		return array;
+	}
+	const getDataToIOSPickerAddr = () =>
+	{
+		let array = [];
+		if(addresses)
+			addresses.forEach(data=>{
+				array.push({label: data.city+" - "+data.country, value: data.city+"-"+data.country, key: data.city+"-"+data.country, color: 'black', inputLabel: data.city+" - "+data.country});
+			});
+		return array;
+	}
 	/*************** END Methods and variables *******************/
 	if(!loaded)
 	  return <Loader/>;
@@ -418,19 +469,15 @@ export default function SearchScreen (props) {
 					rightIcon={<Feather name="search" size={24} color="black" />}  
 					onChangeText={value => setKeyword(value)} />
 				<Separator/>
-				<View style={{borderWidth:1,width:'95%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
-					<Picker
-						style={{height:40,fontSize:15,alignItems:'center'}}
-						selectedValue={listingType}
-						onValueChange={(itemValue, itemIndex) =>
-						setListingType(itemValue)}>
-						{listingTypes&&listingTypes.map((data,index) =>
-							{
-								return <Picker.Item key={index} label={data.label} value={data.idListingType} />;
-							}
-						)}
-					</Picker>
+				{Platform.OS === 'ios'?
+				<View style={{width:'95%',marginRight:'auto',marginLeft:'auto',height:40,borderWidth:1,borderColor:'black',fontSize:15,lineHeight:18,alignItems:'center',padding:10,marginBottom:20,borderRadius:3}}>
+					<Dropdown value={listingType} handler={setListingType}
+					placeholder={{ label: 'Selectioner le type...', value: null, color: '#9EA0A4' }}
+					items={getDataToIOSPickerTypes()}/>
 				</View>
+				:<View style={{borderWidth:1,width:'95%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
+					<Picking/>
+				</View>}
 				<Input placeholder="Nombre des places" value={places} 
 					rightIcon={<MaterialCommunityIcons name="seat-recline-extra" size={24} color="black" />}  
 					onChangeText={value => setPlaces(value)} keyboardType='numeric'/>
@@ -456,19 +503,15 @@ export default function SearchScreen (props) {
 				<Text style={{fontSize: 23, fontWeight: 'bold'}}> Recherche</Text>
 			</View>
 			<ScrollView contentContainerStyle={{ flexGrow: 1,backgroundColor:"#fff",padding:20,justifyContent:"center",alignItems:"center"}} keyboardShouldPersistTaps='handled'>
-				<View style={{borderWidth:1,width:'90%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
-					<Picker
-						style={{height:40,fontSize:15,alignItems:'center'}}
-						selectedValue={listingType}
-						onValueChange={(itemValue, itemIndex) =>
-						setListingType(itemValue)}>
-						{listingTypes&&listingTypes.map((data,index) =>
-							{
-								return <Picker.Item key={index} label={data.label} value={data.idListingType} />;
-							}
-						)}
-					</Picker>
+				{Platform.OS === 'ios'?
+				<View style={{width:'95%',marginRight:'auto',marginLeft:'auto',height:40,borderWidth:1,borderColor:'black',fontSize:15,lineHeight:18,alignItems:'center',padding:10,marginBottom:20,borderRadius:3}}>
+					<Dropdown value={listingType} handler={setListingType}
+					placeholder={{ label: 'Selectioner le type...', value: null, color: '#9EA0A4' }}
+					items={getDataToIOSPickerTypes()}/>
 				</View>
+				:<View style={{borderWidth:1,width:'95%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
+					<Picking/>
+				</View>}
 				<TouchableOpacity disabled={sentData}
 				onPress={() => getResult()}
 				style={[styles.buttons,{marginBottom:'5%'}]}>
@@ -512,19 +555,15 @@ export default function SearchScreen (props) {
 				<Text style={{fontSize: 23, fontWeight: 'bold'}}> Recherche</Text>
 			</View>
 			<ScrollView contentContainerStyle={{ flexGrow: 1,backgroundColor:"#fff",padding:20,justifyContent:"center",alignItems:"center"}} keyboardShouldPersistTaps='handled'>
-				<View style={{borderWidth:1,width:'90%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
-					<Picker
-						style={{height:40,fontSize:15,alignItems:'center'}}
-						selectedValue={address}
-						onValueChange={(itemValue, itemIndex) =>
-						setAddress(itemValue)}>
-						{addresses&&addresses.map((data,index) =>
-							{
-								return <Picker.Item key={index} label={data.city+" - "+data.country}value={data.city+"-"+data.country} />;
-							}
-						)}
-					</Picker>
+				{Platform.OS === 'ios'?
+				<View style={{width:'95%',marginRight:'auto',marginLeft:'auto',height:40,borderWidth:1,borderColor:'black',fontSize:15,lineHeight:18,alignItems:'center',padding:10,marginBottom:20,borderRadius:3}}>
+					<Dropdown value={address} handler={setAddress}
+					placeholder={{ label: 'Selectioner une adresse...', value: null, color: '#9EA0A4' }}
+					items={getDataToIOSPickerAddr()}/>
 				</View>
+				:<View style={{borderWidth:1,width:'95%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
+					<PickingAddr/>
+				</View>}
 				<TouchableOpacity disabled={sentData}
 				onPress={() => getResult()}
 				style={[styles.buttons,{marginBottom:'5%'}]}>

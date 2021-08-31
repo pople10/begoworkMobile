@@ -21,11 +21,11 @@ import TopBar from '../components/TopBar';
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator(props) {
-  const colorScheme = useColorScheme();
+  const colorScheme = "light";
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].selected ,inactiveTintColor: Colors[colorScheme].backgroundIcons,showLabel: false}}>
+      tabBarOptions={{ activeTintColor: Colors["light"].selected ,inactiveTintColor: Colors["light"].backgroundIcons,showLabel: false}}>
       <BottomTab.Screen
         name="Home"
         options={{

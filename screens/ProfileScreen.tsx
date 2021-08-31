@@ -1,5 +1,5 @@
 import React,{useEffect,useState,useRef} from 'react'
-import {Image, StyleSheet,Dimensions,ActivityIndicator,SafeAreaView,TouchableOpacity,ScrollView,TextInput,Button} from 'react-native'
+import {Image, StyleSheet,Dimensions,ActivityIndicator,SafeAreaView,TouchableOpacity,ScrollView,TextInput,Button,Platform} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text, View } from '../components/Themed';
 import ButtonCustom from '../components/Button';
@@ -400,7 +400,7 @@ export default function Profile (props) {
 			return <NotAuth navigation={props.navigation} guestChanger={props.guestChanger}/>;
 	return (
 	<SafeAreaView>
-			<View style={{position:'absolute',top:30,left:'3%',backgroundColor:"transparent",zIndex:1000000}}>
+			<View style={{position:'absolute',top:(Platform.OS === 'ios'?"7%":"5%"),left:'3%',backgroundColor:"transparent",zIndex:1000000}}>
 				<TouchableOpacity
 				  onPress={() => {
 					props.navigation.goBack();
@@ -408,7 +408,7 @@ export default function Profile (props) {
 				  <AntDesign name="back" size={35} color="black" />
 				</TouchableOpacity>
 			</View>
-			<View style={{position:'absolute',top:30,right:'3%',backgroundColor:"transparent",zIndex:1000000}}>
+			<View style={{position:'absolute',top:(Platform.OS === 'ios'?"7%":"5%"),right:'3%',backgroundColor:"transparent",zIndex:1000000}}>
 				<TouchableOpacity
 				  onPress={() => {
 					(async () => {await logout();})();

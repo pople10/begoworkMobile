@@ -29,7 +29,6 @@ class GoBackBar extends React.PureComponent {
 
 const styles = StyleSheet.create({
   mainNav: {
-    flex: 1,
     justifyContent: 'space-between',
     flexDirection: 'row',
     padding: 10,
