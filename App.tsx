@@ -9,6 +9,7 @@ import NetInfo from "@react-native-community/netinfo";
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import AnimatedSplash from "react-native-animated-splash-screen";
+import { MaterialIcons } from '@expo/vector-icons';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -69,38 +70,13 @@ function App() {
   
   const getToken = async function()
 	  {
-		/*setGuest(false);
-		try { await AsyncStorage.removeItem("token");console.log("deleted"); } catch(exception) { console.log("sssdd"); }	*/
-		
 		try {
 			const value = await AsyncStorage.getItem('token');
 			setToken(value);
-			/*const value2 = await AsyncStorage.getItem('guest');
-			if(value2)
-				setGuest(JSON.parse(value2.toLowerCase()));*/
 		} catch(e) {
 			//return null;
 		}
 	  }  
-	async function sendPushNotification(expoPushToken) {
-	  const message = {
-		to: expoPushToken,
-		sound: 'default',
-		title: 'Original Title',
-		body: 'And here is the body!',
-		data: { someData: 'goes here' },
-	  };
-
-	  await fetch('https://exp.host/--/api/v2/push/send', {
-		method: 'POST',
-		headers: {
-		  Accept: 'application/json',
-		  'Accept-encoding': 'gzip, deflate',
-		  'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(message),
-	  });
-	}
 
 	async function registerForPushNotificationsAsync() {
 	  let token;
@@ -138,6 +114,7 @@ function App() {
 			<React.Fragment>
 				{(token||guest)?<AreaComp />:<SafeAreaProvider><StartedNavigator expoPushToken={expoPushToken} guestChanger={setGuest} tokenChanger={setToken}/><StatusBar /></SafeAreaProvider>}
 				{!connected&&<Overlay>
+					<MaterialIcons style={{textAlign:'center'}} name="wifi-off" size={30} color="red" />
 					<Text>Vous devez avoir une connexion internet!</Text>
 				</Overlay>}
 			</React.Fragment>
