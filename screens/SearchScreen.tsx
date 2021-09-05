@@ -1,5 +1,5 @@
 import React,{useEffect,useState,useRef} from 'react'
-import {ImageBackground, StyleSheet,Dimensions,ActivityIndicator,TouchableOpacity,ScrollView,RefreshControl,Platform} from 'react-native'
+import {ImageBackground, StyleSheet,Dimensions,ActivityIndicator,TouchableOpacity,ScrollView,RefreshControl,Platform,Picker} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text, View} from '../components/Themed';
 import ButtonCustom from '../components/Button';
@@ -12,7 +12,6 @@ import apiConst from '../constants/api';
 import CustomisableAlert ,{showAlert,closeAlert } from "react-native-customisable-alert";
 import NotAuth from '../screens/NotAuthScreenRoot';
 import { Entypo,MaterialCommunityIcons,Feather,AntDesign,MaterialIcons } from '@expo/vector-icons';
-import {Picker} from '@react-native-picker/picker';
 import { Input } from 'react-native-elements';
 import Dropdown from '../components/Dropdown';
 
@@ -158,6 +157,8 @@ export default function SearchScreen (props) {
 				return;
 			}
 			return response.json().then(function(data) {
+				if(data.length!=0)
+					setAddress(data[0].city+"-"+data[0].country);
 				setAddresses(data);
         });})
         .catch(function(error) {
@@ -220,6 +221,8 @@ export default function SearchScreen (props) {
 				return;
 			}
 			return response.json().then(function(data) {
+				if(data.length!=0)
+					setListingType(data[0].idListingType);
 				setListingTypes(data);
         });})
         .catch(function(error) {
@@ -476,7 +479,17 @@ export default function SearchScreen (props) {
 					items={getDataToIOSPickerTypes()}/>
 				</View>
 				:<View style={{borderWidth:1,width:'95%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
-					<Picking/>
+					<Picker
+						style={{height:40,fontSize:15,alignItems:'center'}}
+						selectedValue={listingType}
+						onValueChange={(itemValue, itemIndex) =>
+						setListingType(itemValue)}>
+						{listingTypes&&listingTypes.map((data,index) =>
+							{
+								return <Picker.Item key={index} label={data.label} value={data.idListingType} />;
+							}
+						)}
+					</Picker>
 				</View>}
 				<Input placeholder="Nombre des places" value={places} 
 					rightIcon={<MaterialCommunityIcons name="seat-recline-extra" size={24} color="black" />}  
@@ -510,7 +523,17 @@ export default function SearchScreen (props) {
 					items={getDataToIOSPickerTypes()}/>
 				</View>
 				:<View style={{borderWidth:1,width:'95%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
-					<Picking/>
+					<Picker
+						style={{height:40,fontSize:15,alignItems:'center'}}
+						selectedValue={listingType}
+						onValueChange={(itemValue, itemIndex) =>{
+						setListingType(itemValue);}}>
+						{listingTypes&&listingTypes.map((data,index) =>
+							{
+								return <Picker.Item key={index} label={data.label} value={data.idListingType} />;
+							}
+						)}
+					</Picker>
 				</View>}
 				<TouchableOpacity disabled={sentData}
 				onPress={() => getResult()}
@@ -562,7 +585,17 @@ export default function SearchScreen (props) {
 					items={getDataToIOSPickerAddr()}/>
 				</View>
 				:<View style={{borderWidth:1,width:'95%',marginRight:'auto',borderColor:'black',marginLeft:'auto',marginBottom:20}}>
-					<PickingAddr/>
+					<Picker
+						style={{height:40,fontSize:15,alignItems:'center'}}
+						selectedValue={address}
+						onValueChange={(itemValue, itemIndex) =>
+						setAddress(itemValue)}>
+						{addresses&&addresses.map((data,index) =>
+							{
+								return <Picker.Item key={index} label={data.city+" - "+data.country}value={data.city+"-"+data.country} />;
+							}
+						)}
+					</Picker>
 				</View>}
 				<TouchableOpacity disabled={sentData}
 				onPress={() => getResult()}

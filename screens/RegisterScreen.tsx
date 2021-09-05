@@ -1,5 +1,5 @@
 import React,{useState,useEffect,ReactDOM} from 'react';
-import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Platform,Picker} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TextInput,Easing,Animated,CheckBox,Linking } from 'react-native';
@@ -12,7 +12,6 @@ import Dropdown from '../components/Dropdown';
 import CustomisableAlert ,{showAlert,closeAlert } from "react-native-customisable-alert";
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import {Picker} from '@react-native-picker/picker';
 
 export default function Register ({tokenChanger,...rest}) {
 	const [username,setUsername]=useState(null);
